@@ -28,17 +28,19 @@ class Admin extends CI_Controller {
 	{
 		$data['title'] = $this->input->post('title');
 		$new_name = 'pdf'.time();
+		$new_name_cover = 'pdf'.time();
 
 		$nama_file = $_FILES["pdf"]['name'];
 		$ext = pathinfo($nama_file, PATHINFO_EXTENSION);
+		
 		$nama_upload = $new_name.".".$ext;
-
 		$data['files']=$nama_upload;
 		
 		$config['upload_path']          = './uploads/';
-		$config['allowed_types']        = 'pdf';
+		$config['allowed_types']        = 'pdf|jpeg|jpg|png|gif|svg';
 		$config['max_size']             = 5000;
 		$config['file_name']             = $new_name;
+
 
 
 		$this->load->library('upload', $config);
@@ -50,17 +52,42 @@ class Admin extends CI_Controller {
 			// redirect($_SERVER['HTTP_REFERER']);
 
 			echo json_encode($error);
-		}else{
+		}else
+		$nama_cover = $_FILES["cover"]['name'];
+		$ext_cover = pathinfo($nama_cover, PATHINFO_EXTENSION);
 
-			$this->MFlipbooks->tambah_data('book',$data);
-			$this->session->set_flashdata('alert','berhasil');
+		$nama_upload_cover = $new_name_cover.".".$ext_cover;
+
+		$config['upload_path']          = './uploads/';
+		$config['allowed_types']        = 'pdf|jpeg|jpg|png|gif|svg';
+		$config['max_size']             = 5000;
+		$config['file_name']             = $new_name_cover;
+
+
+		$this->load->library('upload', $config);
+		$this->upload->do_upload('cover');
+		$data['cover']=$nama_upload_cover;
+		
+		$this->MFlipbooks->tambah_data('book',$data);
+		$this->session->set_flashdata('alert','berhasil');
 			// redirect('mitra');
-			redirect($_SERVER['HTTP_REFERER']);
+		redirect($_SERVER['HTTP_REFERER']);
 
-		}
+	}
+
+
+	public function delete($id){
+		$this->MFlipbooks->delete_pdf($id);
+		redirect('Admin');
+	}
+
+	public function logout(){
+		$this->session->sess_destroy();
+		redirect('Front');
 	}
 
 }
+
 
 /* End of file Admin.php */
 /* Location: ./application/controllers/Admin.php */ 

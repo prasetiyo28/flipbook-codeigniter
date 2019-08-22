@@ -16,6 +16,7 @@
 							
 							<th>No</th>
 							<th>Judul</th>
+							<th>Cover</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -26,6 +27,7 @@
 							<tr>
 								<td><?php echo $no++; ?></td>
 								<td><?php echo $r->title; ?></td>
+								<td><img width="250px" src="<?php echo base_url() ?>uploads/<?php echo $r->cover ?>"></td>
 
 								<td>
 
@@ -82,6 +84,12 @@
 					<div class="form-group">
 						<label for="inputText3" class="col-form-label">File PDF</label>
 						<input id="inputText3" name="pdf" type="file" accept=".pdf" class="form-control" placeholder="Nama PDF...">
+
+					</div>
+
+					<div class="form-group">
+						<label for="inputText3" class="col-form-label">Cover</label>
+						<input id="inputText3" name="cover" type="file" accept="image/*" class="form-control" placeholder="Cover">
 
 					</div>
 					<!-- <div class="form-group">
@@ -146,6 +154,8 @@
 </div>
 
 
+
+
 <!-- END Modal Ubah -->
 
 <script>
@@ -162,4 +172,6 @@
 
         });
     });
+
+	
 </script>

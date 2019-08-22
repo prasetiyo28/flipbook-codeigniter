@@ -1,12 +1,12 @@
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-2 text-gray-800">Data Paket</h1>
+	<h1 class="h3 mb-2 text-gray-800">Data PDF</h1>
 
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Data Stock <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-success"><i class="fa fa-plus"></i>Tambah Stock</a></h6>
+			<h6 class="m-0 font-weight-bold text-primary">Data PDF <br></h6>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -14,61 +14,49 @@
 					<thead>
 						<tr>
 							
-							<th>id</th>
-							<th>Tanggal</th>
-							<th>Jumlah</th>
-							<th>Harga</th>
-							<th>Total</th>
-							<th>Jenis</th>
+							<th>No</th>
+							<th>Judul</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 
 					
 					<tbody>
-						<?php foreach ($datastock as $r) { ?>
+						<?php $no=1; foreach ($flipbook as $r) { ?>
 							<tr>
-								<td><?php echo $r->id_stock; ?></td>
-								<td><?php echo $r->tanggal; ?></td>
-								<td><?php echo $r->jumlah; ?></td>
-								<td><?php echo $r->harga; ?></td>
-								<td><?php echo ($r->jumlah * $r->harga); ?></td>
-								<td><?php echo $r->kategori; ?></td>
-								<?php if ($r->status == 0) { ?>
-									<td>
-										<a href="<?php echo base_url() ?>cabang/hapus_pengeluaran/<?php echo $r->id_stock ?>" class="btn btn-danger">Delete</a>
-										<a 
-										href="javascript:;"
-										data-id="<?php echo $r->id_stock ?>"
-										data-jumlah="<?php echo $r->jumlah ?>"
-										data-tanggal="<?php echo $r->tanggal ?>"
-										data-toggle="modal" data-target="#edit-data">
-										<button  data-toggle="modal" data-target="#ubah-data" class="btn btn-warning">Edit</button>
-									</td>
-								<?php }elseif($r->status == 1){ ?>
-									<td>
-										<a href="javascript:void(0);" class="btn btn-warning"><i class="fa fa-box"></i> Sedang diproses</a>
-									</td>
+								<td><?php echo $no++; ?></td>
+								<td><?php echo $r->title; ?></td>
 
-								<?php }elseif($r->status == 2){ ?>
-									<td>
-										<a href="<?php echo base_url() ?>cabang/terima/<?php echo $r->id_stock  ?>" class="btn btn-info"><i class="fa fa-truck"></i> Sedang dikirim</a>
-									</td>
-								<?php }else{ ?>
-									<td>
-										<a href="javascript:void(0);" class="btn btn-success"><i class="fa fa-check"></i> Diterima</a>
-									</td>
-								<?php } ?>
-							</tr>
-						<?php } ?>
+								<td>
 
 
 
-					</tbody>
-				</table>
-			</div>
+								<!-- 	<a 
+									href="javascript:;"
+									data-id="<?php echo $r->id_PDF ?>"
+									data-jumlah="<?php echo $r->banyak ?>"
+									data-harga="<?php echo $r->harga ?>"
+									data-keterangan="<?php echo $r->keterangan ?>"
+									data-toggle="modal" data-target="#edit-data">
+									<button  data-toggle="modal" data-target="#ubah-data" class="btn btn-warning">Edit</button>
+								</a> -->
+
+								<!-- <a href="<?php echo base_url() ?>cabang/hapus_PDF/<?php echo $r->id_PDF ?>" class="btn btn-danger">Delete</a> -->
+								<!-- <a href="<?php echo base_url() ?>admin/delete/<?php echo $r->id ?>" class="btn btn-danger">Delete</a> -->
+								<a href="<?php echo base_url() ?>Front/detail/<?php echo $r->id ?>" target="_blank"><img width="250px" src="<?php echo base_url() ?>uploads/<?php echo $r->cover ?>"></a>
+
+							</td>
+
+						</tr>
+					<?php } ?>
+
+
+
+				</tbody>
+			</table>
 		</div>
 	</div>
+</div>
 
 </div>
 <!-- /.container-fluid -->
@@ -78,28 +66,24 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Pengeluaran Hari Ini</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Tambah PDF</h5>
 				<a href="#" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</a>
 			</div>
 			<div class="modal-body">
-				<form action='<?php echo base_url() ?>cabang/order' method="POST" enctype="multipart/form-data">
+				<form action='<?php echo base_url() ?>admin/save_pdf' method="POST" enctype="multipart/form-data">
+
 					<div class="form-group">
-						<label for="inputText3" class="col-form-label">Jenis</label>
-						<select class="form-control" name="kategori" required>
-							<option value="" disabled selected>-pilih kategori-</option>
-							<option value="1">Paha</option>
-							<option value="2">Dada</option>
-						</select>
+						<label for="inputText3" class="col-form-label">Judul</label>
+						<input id="inputText3" name="title" type="text" class="form-control" placeholder="Judul">
+
 					</div>
 					<div class="form-group">
-						<label for="inputText3" class="col-form-label">Stock</label>
-						<input id="inputText3" name="jumlah"  min="0" type="number" class="form-control" placeholder="Jumlah order stock...">
+						<label for="inputText3" class="col-form-label">File PDF</label>
+						<input id="inputText3" name="pdf" type="file" accept=".pdf" class="form-control" placeholder="Nama PDF...">
+
 					</div>
-
-					
-
 					<!-- <div class="form-group">
 						<label for="inputText3" class="col-form-label">Detail Foto</label>
 						<p>*file yang diterima hanya berekstensi .jpg, .jpeg, .png</p>
@@ -121,6 +105,9 @@
 	</div>
 </div>
 
+
+
+
 <!-- Modal Ubah -->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
 	<div class="modal-dialog">
@@ -130,7 +117,7 @@
 				<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
 				
 			</div>
-			<form class="form-horizontal" action="<?php echo base_url('cabang/update_order')?>" method="post" enctype="multipart/form-data" role="form">
+			<form class="form-horizontal" action="<?php echo base_url('cabang/update_pengeluaran')?>" method="post" enctype="multipart/form-data" role="form">
 				<div class="modal-body">
 					<div class="form-group">
 						<label class="col-lg-2 col-sm-2 control-label">Tanggal</label>
@@ -164,6 +151,10 @@
 <script>
 	$(document).ready(function() {
         // Untuk sunting
+
+        <?php if ($this->session->flashdata('gagal') != '') { ?>
+        	window.alert("Username/password salah");
+        <?php } ?>
         $('#edit-data').on('show.bs.modal', function (event) {
             var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
             var modal          = $(this)

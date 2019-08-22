@@ -17,10 +17,18 @@ class MFlipbooks extends CI_Model {
 	public function get_all_pdf()
 	{
 
+
 		$query = $this->db->get('book');
 		return $query->result();
 
 	}
+
+	function delete_pdf($id){
+		$this->db->where('id',$id);
+		$this->db->delete('book');
+	}
+
+
 }
 
 /* End of file MFlipbooks.php */

@@ -49,16 +49,27 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Yakin untuk Logout?</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Login</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">Klik logout untuk keluar dari admin</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="<?php echo base_url() ?>admin/logout">Logout</a>
-        </div>
+        <div class="modal-body">
+
+          <form action="<?php echo base_url() ?>Front/login" method="post">
+
+
+            <input type="text" name="username" class="form-control" placeholder="Username">
+            <input type="password" name="password" class="form-control" placeholder="Password">
+
+
+
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary" type="submit">Login</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
